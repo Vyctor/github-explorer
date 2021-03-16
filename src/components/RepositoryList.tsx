@@ -2,13 +2,19 @@ import { useEffect, useState } from "react";
 import RepositoryItem from "./RepositoryItem";
 import "../styles/repositories.scss";
 
+interface Repository {
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 export default function RepositoryList() {
-  const [repositories, setRepository] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
 
   useEffect(() => {
     fetch("https://api.github.com/users/vyctor/repos")
       .then((response) => response.json())
-      .then((data) => setRepository(data));
+      .then((data) => setRepositories(data));
   }, [repositories]);
 
   return (
